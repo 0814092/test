@@ -1,0 +1,93 @@
+<html>
+<style>
+body{
+overflow:hidden;
+}
+
+h2{
+    background: #21afd6;
+    color: #fff;
+    padding: 10px;
+    //font-size: 1.4rem;
+    font-weight: 100;
+}
+
+img{
+display:none;
+}
+
+ul{
+list-style:none;
+padding:0;
+}
+
+.js-feed {
+height:500px;
+overflow:hidden;
+//overflow-y:scroll;
+//border:1px solid #ccc;
+//padding:0 20px;
+}
+</style>
+
+<script>
+window.onload = function () {
+	autoScroll();
+}
+var $scrollY = 0;
+function autoScroll() {
+	var $sampleBox = document.getElementById("js-feed");
+	$sampleBox.scrollTop = ++$scrollY;
+	if( $scrollY < $sampleBox.scrollHeight - $sampleBox.clientHeight ){
+		setTimeout( "autoScroll()", 20 );
+		}else{
+			$scrollY = 0;
+			$sampleBox.scrollTop = 0;
+			setTimeout( "autoScroll()", 20 );
+}}
+</script>
+
+
+<div class="js-feed" id="js-feed"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const target = document.querySelector('.js-feed');
+    const feed = 'https://www.johnan.ac.jp/wp-json/wp/v2/posts';
+    const weekArr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', feed);
+    xhr.responseType = 'json';
+    xhr.send();
+    xhr.onload = function() {
+        const data = xhr.response;
+        let list = '<ul class="feeds">';
+
+        for (let index in data) {
+            let date = new Date(data[index].date);
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1; //0～11
+            let day = date.getDate();
+            let week = date.getDay(); //0~6
+
+            let itemDate = year+'/'+month+'/'+day+'/'+'('+weekArr[week]+')';
+
+            list += '<li class="feeds__item">';
+                //list += '<a href="'+data[index].link+'" target="_blank">';
+                    //list += '<time class="feeds__item__time">'+itemDate+'</time>';
+                    //list += '<span class="feeds__item__title">'+data[index].title.rendered+'</span>';
+                    list += '<h2 class="feeds__item__title">'+data[index].title.rendered+'</h2>';
+                    list += '<span class="feeds__item__content">'+data[index].content.rendered+'</span>';
+                //list += '</a>';
+            list += '</li>';
+        }
+
+        list += '</ul>';
+
+        target.innerHTML = list;
+    }
+});
+</script>
+
+</html>

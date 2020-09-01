@@ -40,11 +40,11 @@ function autoScroll() {
 	var $sampleBox = document.getElementById("js-feed");
 	$sampleBox.scrollTop = ++$scrollY;
 	if( $scrollY < $sampleBox.scrollHeight - $sampleBox.clientHeight ){
-		setTimeout( "autoScroll()", 100 );
+		setTimeout( "autoScroll()", 70 );
 		}else{
 			$scrollY = 0;
 			$sampleBox.scrollTop = 0;
-			setTimeout( "autoScroll()", 100 );
+			setTimeout( "autoScroll()", 70 );
 }}
 </script>
 

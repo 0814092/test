@@ -36,15 +36,16 @@ window.onload = function () {
 	autoScroll();
 }
 var $scrollY = 0;
+var $speed = 100;
 function autoScroll() {
 	var $sampleBox = document.getElementById("js-feed");
 	$sampleBox.scrollTop = ++$scrollY;
 	if( $scrollY < $sampleBox.scrollHeight - $sampleBox.clientHeight ){
-		setTimeout( "autoScroll()", 50 );
+		setTimeout( "autoScroll()", $speed );
 		}else{
 			$scrollY = 0;
 			$sampleBox.scrollTop = 0;
-			setTimeout( "autoScroll()", 50 );
+			setTimeout( "autoScroll()", $speed );
 }}
 </script>
 
